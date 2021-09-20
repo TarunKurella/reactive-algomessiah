@@ -5,7 +5,7 @@ jdk: oraclejdk15
 addons:
   apt:
     packages:
-      - oracle-java9-installer
+      - oracle-java15-installer
 before_install:
   - chmod +x mvnw
 deploy:
