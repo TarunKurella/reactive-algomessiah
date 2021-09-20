@@ -4,13 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerSentEvent;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import reactor.core.publisher.*;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicLong;
 
 @SpringBootApplication
@@ -38,6 +36,17 @@ public class ReactiveApplication {
 		if (result.isFailure()) {
 			// do something here, since emission failed
 		}
+	}
+
+	@CrossOrigin
+	@PostMapping("order")
+	String postOrder(@RequestBody Order order) {
+		order.setTime(LocalDateTime.now());
+		System.out.println(order);
+		order.setType(order.getType().toLowerCase());
+		Sinks.EmitResult result = sink.tryEmitNext(order.toString());
+
+		return "SUccesss";
 	}
 
 	@CrossOrigin
