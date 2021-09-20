@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import reactor.core.publisher.*;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -39,6 +40,7 @@ public class ReactiveApplication {
 		}
 	}
 
+	@CrossOrigin
 	@GetMapping(value="get",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<ServerSentEvent> sse() {
 		return sink.asFlux().map(e -> ServerSentEvent.builder(e).build());
