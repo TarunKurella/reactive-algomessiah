@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerSentEvent;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,7 @@ public class ReactiveApplication {
 		this.counter = new AtomicLong();
 	}
 
+	@CrossOrigin
 	@GetMapping("/send")
 	public void test() {
 		Sinks.EmitResult result = sink.tryEmitNext("Hello World #" + counter.getAndIncrement());
