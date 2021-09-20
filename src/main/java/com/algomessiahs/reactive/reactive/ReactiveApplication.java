@@ -7,6 +7,7 @@ import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import reactor.core.publisher.*;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -28,6 +29,7 @@ public class ReactiveApplication {
 		this.counter = new AtomicLong();
 	}
 
+	@CrossOrigin
 	@GetMapping("/send")
 	public void test() {
 		Sinks.EmitResult result = sink.tryEmitNext("Hello World #" + counter.getAndIncrement());
@@ -37,6 +39,7 @@ public class ReactiveApplication {
 		}
 	}
 
+	@CrossOrigin
 	@GetMapping(value="get",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<ServerSentEvent> sse() {
 		return sink.asFlux().map(e -> ServerSentEvent.builder(e).build());
