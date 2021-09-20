@@ -1,0 +1,16 @@
+language: java
+sudo: true
+dist: trusty
+jdk: oraclejdk15
+addons:
+  apt:
+    packages:
+      - oracle-java9-installer
+before_install:
+  - chmod +x mvnw
+deploy:
+  provider: heroku
+  api-key: $HEROKU_API_KEY
+  app: reactive-algomessiahs
+  on:
+    all_branches: true
